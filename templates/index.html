@@ -1,12 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Find blood faster. Reach the right donor.</h1>
-<p class="lead">Livora connects donors, blood banks and hospitals in Nepal, so a family searching for one unit of O-negative doesn't have to make call after call.</p>
-<p><a class="btn" href="{{ url_for('new_request') }}">Request blood</a> <a class="btn ghost" href="{{ url_for('register') }}">Become a donor</a></p>
+<section class="hero">
+  <h1>Blood, when it matters. Found in minutes.</h1>
+  <p class="lead">Livora connects donors, blood banks and hospitals across Nepal, so a family looking for one unit of O-negative doesn't have to make call after call.</p>
+  <div class="actions">
+    <a class="btn" href="{{ url_for('new_request') }}">Request blood</a>
+    <a class="btn ghost" href="{{ url_for('register') }}">Become a donor</a>
+  </div>
+</section>
 
-<h2>Blood available now</h2>
-<div class="stock">
-  {% for bg, n in stock.items() %}<div class="{{ 'low' if n < 3 }}"><b>{{ n }}</b>{{ bg }}</div>{% endfor %}
+<h2>In stock right now</h2>
+<div class="drops">
+  {% for bg, n in stock.items() %}
+  <div class="drop {{ 'none' if n == 0 else ('low' if n < 3) }}">
+    <div class="shape"><span>{{ bg }}</span></div>
+    <b>{{ n }}</b> <small>{{ 'unit' if n == 1 else 'units' }}{{ ', running low' if 0 < n < 3 }}</small>
+  </div>
+  {% endfor %}
 </div>
-<p class="muted">{{ donors }} registered donors · {{ open_requests }} open requests</p>
+<div class="pills"><span>{{ donors }} registered donors</span><span>{{ open_requests }} open requests</span></div>
+
+<h2>How it works</h2>
+<div class="steps">
+  <div><b>1. Donors sign up</b><span>Add your blood group and district. Livora checks if you can donate today.</span></div>
+  <div><b>2. Hospitals post a request</b><span>Choose the blood group, units and how urgent it is. You get a request number.</span></div>
+  <div><b>3. Matches appear</b><span>Eligible donors in the same district are shown right away, and staff update the status.</span></div>
+</div>
 {% endblock %}

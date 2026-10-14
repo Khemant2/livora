@@ -4,11 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% block title %}Livora{% endblock %} | Livora Blood Bank</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 <header><nav>
-  <a class="logo" href="{{ url_for('index') }}">Livora</a>
+  <a class="logo" href="{{ url_for('index') }}"><i></i>Livora</a>
   <a href="{{ url_for('donors') }}">Find donors</a>
   <a href="{{ url_for('new_request') }}">Request blood</a>
   <a href="{{ url_for('track') }}">Track request</a>
@@ -25,5 +28,6 @@
 {% endwith %}
 {% block content %}{% endblock %}
 </main>
+<footer>Livora, a blood donation and blood bank management project for Nepal.</footer>
 </body>
 </html>
