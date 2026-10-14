@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h1>Dashboard</h1>
+{% if low %}<div class="flash warn">Low stock (under 3 units): {{ low|join(', ') }}</div>{% endif %}
+{% if near_expiry %}<div class="flash warn">{{ near_expiry }} unit(s) expire within 7 days. Check <a href="{{ url_for('inventory') }}">inventory</a>.</div>{% endif %}
+<div class="stock">{% for bg, n in stock.items() %}<div class="{{ 'low' if n < 3 }}"><b>{{ n }}</b>{{ bg }}</div>{% endfor %}</div>
+
+<h2>Blood requests</h2>
+<div class="table-wrap"><table>
+<tr><th>#</th><th>Patient / Hospital</th><th>Group</th><th>Units</th><th>Urgency</th><th>Contact</th><th>Status</th></tr>
+{% for r in reqs %}
+<tr><td>{{ r.id }}</td><td>{{ r.patient }}<br><span class="muted">{{ r.hospital }}, {{ r.district }}</span></td>
+<td>{{ r.blood_group }}</td><td>{{ r.units }}</td>
+<td><span class="tag {{ 'no' if r.urgency=='Emergency' }}">{{ r.urgency }}</span></td><td>{{ r.contact }}</td>
+<td><form method="post" action="{{ url_for('update_status', rid=r.id) }}" style="display:flex;gap:6px">
+<select name="status">{% for s in STATUSES %}<option {{ 'selected' if s==r.status }}>{{ s }}</option>{% endfor %}</select>
+<button class="small">Save</button></form></td></tr>
+{% else %}<tr><td colspan="7" class="muted">No requests yet.</td></tr>{% endfor %}
+</table></div>
+{% endblock %}

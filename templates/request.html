@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Request blood{% endblock %}
+{% block content %}
+<h1>Request blood</h1>
+<form class="card" method="post">
+  <div class="row">
+    <div><label>Patient name</label><input name="patient" required></div>
+    <div><label>Hospital</label><input name="hospital" required></div>
+    <div><label>Contact phone</label><input name="contact" required></div>
+    <div><label>District</label><input name="district" required></div>
+    <div><label>Blood group</label><select name="blood_group">{% for b in BLOOD_GROUPS %}<option>{{ b }}</option>{% endfor %}</select></div>
+    <div><label>Units needed</label><input type="number" name="units" min="1" value="1" required></div>
+    <div><label>Urgency</label><select name="urgency">{% for u in URGENCY %}<option>{{ u }}</option>{% endfor %}</select></div>
+  </div>
+  <button>Submit request</button>
+</form>
+{% endblock %}

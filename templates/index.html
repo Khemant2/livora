@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Find blood faster. Reach the right donor.</h1>
+<p class="lead">Livora connects donors, blood banks and hospitals in Nepal, so a family searching for one unit of O-negative doesn't have to make call after call.</p>
+<p><a class="btn" href="{{ url_for('new_request') }}">Request blood</a> <a class="btn ghost" href="{{ url_for('register') }}">Become a donor</a></p>
+
+<h2>Blood available now</h2>
+<div class="stock">
+  {% for bg, n in stock.items() %}<div class="{{ 'low' if n < 3 }}"><b>{{ n }}</b>{{ bg }}</div>{% endfor %}
+</div>
+<p class="muted">{{ donors }} registered donors · {{ open_requests }} open requests</p>
+{% endblock %}
